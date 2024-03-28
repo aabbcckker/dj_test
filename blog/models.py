@@ -12,7 +12,7 @@ class Category(models.Model):
     )
 
     name = models.CharField(max_length=50, verbose_name='名称'),
-    status = models.IntegerField(default=STATUS_NORMAL, choices=STATUS_CHOICES, verbose_name='状态'),
+    status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_CHOICES, verbose_name='状态'),
     created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间'),
     is_nav = models.BooleanField(default=False, verbose_name='是否导航'),
     # post = models.ManyToManyField(Post)
@@ -29,7 +29,7 @@ class Tag(models.Model):
         (STATUS_DELETE, '删除'),
     )
     name = models.CharField(max_length=50, verbose_name='名称'),
-    status = models.IntegerField(default=STATUS_NORMAL, choices=STATUS_CHOICES,verbose_name='状态'),
+    status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_CHOICES,verbose_name='状态'),
     created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间'),
     owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者'),
 
@@ -48,7 +48,7 @@ class Post(models.Model):
     title = models.CharField(max_length=50, verbose_name='标题'),
     description = models.CharField(max_length=1024,verbose_name='摘要',blank=True),
     content = models.TextField(verbose_name='正文'),
-    status = models.IntegerField(default=STATUS_NORMAL, choices=STATUS_CHOICES, verbose_name='状态'),
+    status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_CHOICES, verbose_name='状态'),
     created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间'),
     updated_time = models.DateTimeField(auto_now=True, verbose_name='更新时间'),
 
