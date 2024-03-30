@@ -20,6 +20,9 @@ class Category(models.Model):
     class Meta:
         verbose_name = verbose_name_plural = '分类'
 
+    def __str__(self):
+        return self.name
+
 
 class Tag(models.Model):
     STATUS_NORMAL = 1
@@ -36,6 +39,9 @@ class Tag(models.Model):
     class Meta:
         verbose_name = verbose_name_plural = '标签'
 
+    def __str__(self):
+        return self.name
+
 class Post(models.Model):
     STATUS_NORMAL = 1
     STATUS_DELETE = 0
@@ -46,7 +52,7 @@ class Post(models.Model):
         (STATUS_DRAFT,'草稿'),
     )
     title = models.CharField(max_length=50, verbose_name='标题')
-    description = models.CharField(max_length=1024,verbose_name='摘要',blank=True)
+    description = models.CharField(max_length=1024, verbose_name='摘要',blank=True)
     content = models.TextField(verbose_name='正文')
     status = models.PositiveIntegerField(default=STATUS_NORMAL, choices=STATUS_CHOICES, verbose_name='状态')
     created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
@@ -62,5 +68,7 @@ class Post(models.Model):
         verbose_name = verbose_name_plural = '文章'
         ordering = ['-id']  #按id降序排序
 
+    def __str__(self):
+        return self.title
 
 
