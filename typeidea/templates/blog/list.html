@@ -1,50 +1,30 @@
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>个人博客</title>
-</head>
-<body>
-<div>
-    顶部分类:
-    {% for cate in navs %}
-    <a href="/category/{{ cate.id }}">{{ cate.name }}</a>
-    {% endfor %}
-</div>
-<hr>
+{% extends './base.html' %}
 
-{% if tag %}
-标签:{{ tag.name }}
-{% endif %}
+{% block title %}
 
-{% if category %}
-分类:{{ category.name }}
-{% endif %}
+    {% if tag %}
+        标签:{{ tag.name }}
+    {% endif %}
 
-<ul>
-    {% for post in post_list %}
-        <li>
-            <a href="/post/{{ post.id }}.html">{{ post.title }}</a>
-            <div>
-                <span>作者:{{ post.owner.username }}</span>
-                <span>分类:{{ post.category.name }}</span>
-            </div>
-            <p>{{ post.description }}</p>
-        </li>
-    {% endfor %}
-</ul>
+    {% if category %}
+        分类:{{ category.name }}
+    {% endif %}
 
-<div>
-    底部分类:
-    {% for cate in categories %}
-    <a href="/category/{{ cate.id }}">{{ cate.name }}</a>
-    {% endfor %}
-</div>
+{% endblock %}
 
-<div>
-    {% for sidebar in sidebars %}
-    <h4>{{ sidebar.title }}</h4>
-    {{ sidebar.content_html }}
-    {% endfor %}
-</div>
-</body>
-</html>
+{% block main %}
+
+    <ul>
+        {% for post in post_list %}
+            <li>
+                <a href='{% url 'post-detail' post.id %}'>{{ post.title }}</a>
+                <div>
+                    <span>作者:{{ post.owner.username }}</span>
+                    <span>分类:{{ post.category.name }}</span>
+                </div>
+                <p>{{ post.description }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
