@@ -89,7 +89,7 @@ class PostAdmin(BaseOwnerAdmin):
     def operater(self, obj):
         return format_html(
             '<a href="{}">编辑</a>',
-            reverse('cus_admin:blog_post_change', args=(obj.id))
+            reverse('cus_admin:blog_post_change', args=(obj.id,))#!!! args中必须用可迭代对象
         )
         operator.short_description = '操作'
 
