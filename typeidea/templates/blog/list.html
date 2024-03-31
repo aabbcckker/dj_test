@@ -4,10 +4,10 @@
 
     {% if tag %}
         标签:{{ tag.name }}
-    {% endif %}
-
-    {% if category %}
+    {% elif category %}
         分类:{{ category.name }}
+    {% else %}
+        首页:
     {% endif %}
 
 {% endblock %}
@@ -26,5 +26,18 @@
             </li>
         {% endfor %}
     </ul>
+
+    {% if page_obj %}
+
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">上一页</a>
+        {% endif %}
+        Page{{ page_obj.number }} of {{ paginator.num_pages }}.
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">下一页</a>
+        {% endif %}
+
+    {% endif %}
 
 {% endblock %}
