@@ -7,7 +7,7 @@ from .models import Category, Post, Tag
 # Create your views here.
 
 #补充通用数据
-class CommentViewMixin:
+class CommonViewMixin:
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
@@ -17,7 +17,7 @@ class CommentViewMixin:
         return context
 
 #首页
-class IndexView(ListView):
+class IndexView(CommonViewMixin, ListView):
     queryset = Post.latest_posts()
     # 分页功能
     paginate_by = 5
@@ -58,7 +58,7 @@ class TagView(IndexView):
 
 
 
-class PostDetailView(CommentViewMixin, DetailView):
+class PostDetailView(CommonViewMixin, DetailView):
     queryset = Post.latest_posts()
     template_name = 'blog/detail.html'
     context_object_name = 'post'

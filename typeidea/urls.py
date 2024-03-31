@@ -23,9 +23,9 @@ from typeidea.custom_site import custom_site
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
-    path('category/<int:pk>/', CategoryView.as_view(), name='category-list'),
-    path('tag/<int:pk>/', TagView.as_view(), name='tag-list'),
-    path('post/<int:pk>.html', PostDetailView.as_view(), name='post-detail'),
+    path('category/<int:category_id>/', CategoryView.as_view(), name='category-list'),
+    path('tag/<int:tag_id>/', TagView.as_view(), name='tag-list'),
+    path('post/<int:post_id>.html', PostDetailView.as_view(), name='post-detail'),
     path('links/', links, name='links'),
 
     path('super_admin/', admin.site.urls, name='super_admin'),
