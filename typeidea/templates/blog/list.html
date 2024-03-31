@@ -4,6 +4,14 @@
     <title>个人博客</title>
 </head>
 <body>
+<div>
+    顶部分类:
+    {% for cate in navs %}
+    <a href="/category/{{ cate.id }}">{{ cate.name }}</a>
+    {% endfor %}
+</div>
+<hr>
+
 {% if tag %}
 标签:{{ tag.name }}
 {% endif %}
@@ -24,5 +32,19 @@
         </li>
     {% endfor %}
 </ul>
+
+<div>
+    底部分类:
+    {% for cate in categories %}
+    <a href="/category/{{ cate.id }}">{{ cate.name }}</a>
+    {% endfor %}
+</div>
+
+<div>
+    {% for sidebar in sidebars %}
+    <h4>{{ sidebar.title }}</h4>
+    {{ sidebar.content }}
+    {% endfor %}
+</div>
 </body>
 </html>

@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+
+from config.models import Sidebar
 from .models import Category, Post, Tag
 # Create your views here.
 
@@ -18,7 +20,9 @@ def post_list(request, category_id=None, tag_id=None):
         'category': category,
         'tag': tag,
         'post_list': post_list,
+        'sidebars': Sidebar.get_all(),
     }
+    context.update(Category.get_navs())
     return render(request, 'blog/list.html', context=context)
 
 
@@ -28,5 +32,11 @@ def post_detail(request, post_id):
     except Post.DoesNotExist:
         post = None
 
-    return render(request, 'blog/detail.html', context={'post': post})
+    context = {
+        'post': post,
+        'sidebars': Sidebar.get_all(),
+    }
+    context.update(Category.get_navs())
+
+    return render(request, 'blog/detail.html', context=context)
 
