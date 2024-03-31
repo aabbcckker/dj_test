@@ -81,6 +81,15 @@ class Post(models.Model):
 
     comments = models.TextField(verbose_name='评论')
 
+    #统计文章访问量
+    pv = models.PositiveIntegerField(default=1)
+    uv = models.PositiveIntegerField(default=1)
+
+    @classmethod
+    def hot_post(cls):
+        return cls.objects.filter(status=cls.STATUS_NORMAL).order_by('-pv')
+
+
     class Meta:
         verbose_name = verbose_name_plural = '文章'
         ordering = ['-id']  #按id降序排序
@@ -121,3 +130,4 @@ class Post(models.Model):
         queryset = cls.objects.filter(status=Post.STATUS_NORMAL)
 
         return queryset
+
