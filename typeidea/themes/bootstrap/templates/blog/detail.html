@@ -1,4 +1,3 @@
-
 {% if post %}
     <h1>{{ post.title }}</h1>
     <div>
@@ -9,3 +8,30 @@
     <p>{{ post.content }}</p>
 
 {% endif %}
+
+<hr>
+<div class="comment">
+    <form action="/comment/" class="form-group" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="target" value="{{ request.path }}">
+        {{ comment_form }}
+        <input type="submit" value="写完了">
+    </form>
+
+
+    <ul class="list-group">
+        {% for comment in comment_list %}
+            <li class="list-group-item">
+                <div class="nickname">
+                    <a href="{{ comment.website }}">{{ comment.nickname }}</a>
+                    <span>{{ comment.created_time }}</span>
+                </div>
+                <div class="comment-content">
+                    {{ comment.content }}
+                </div>
+            </li>
+        {% endfor %}
+
+    </ul>
+
+</div>

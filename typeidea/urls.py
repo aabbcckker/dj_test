@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from blog.views import IndexView, PostDetailView, CategoryView, TagView, SearchView, AuthorView
+from comment.views import CommentView
 from config.views import LinkView
 
 from typeidea.custom_site import custom_site
@@ -28,6 +29,7 @@ urlpatterns = [
     path('links/', LinkView.as_view(), name='links'),
     path('search/', SearchView.as_view(), name='search'),
     path('author/<int:owner_id>/', AuthorView.as_view(), name='author'),
+    path('comment/', CommentView.as_view(), name='comment'),
 
     path('super_admin/', admin.site.urls, name='super_admin'),
     path('admin/', custom_site.urls, name='admin'),
