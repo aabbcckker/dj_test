@@ -66,8 +66,8 @@ class PostDetailView(CommonViewMixin, DetailView):
     pk_url_kwarg = 'post_id'
 
 
-class SearchView(ListView):
-    def get_context_data(self, **kwargs):
+class SearchView(IndexView):
+    def get_context_data(self):
         context = super().get_context_data()
         context.update({
             'keyword': self.request.GET.get('keyword', '')
@@ -80,4 +80,12 @@ class SearchView(ListView):
         if not keyword:
             return queryset
         return queryset.filter(Q(title__icontains=keyword) | Q(description__icontains=keyword))
+
+
+class AuthorView(IndexView):
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        author_id = self.kwargs.get('author_id')
+        return queryset.filter(owner_id=author_id)
+
 
