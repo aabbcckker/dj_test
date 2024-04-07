@@ -1,3 +1,4 @@
+import mistune
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -81,6 +82,8 @@ class Post(models.Model):
 
     comments = models.TextField(verbose_name='评论')
 
+    content_html = models.TextField(verbose_name='正文html代码', blank=True, editable=False)
+
     #统计文章访问量
     pv = models.PositiveIntegerField(default=1)
     uv = models.PositiveIntegerField(default=1)
@@ -130,4 +133,8 @@ class Post(models.Model):
         queryset = cls.objects.filter(status=Post.STATUS_NORMAL)
 
         return queryset
+
+    def save(self, *args, **kwargs):
+        self.content_html = mistune.markdown(self.content_html)
+        super().save(*args, **kwargs)
 
