@@ -79,7 +79,8 @@ class PostDetailView(CommonViewMixin, DetailView):
 
     def get(self, request, *args, **kwargs):
         response = super().get(request, *args, **kwargs)
-        Post.objects.filter(pk=self.object.id).update(pv=F('pv') + 1, uv=F('uv') + 1)
+        self.handle_visited()
+        return response
 
 
     def handle_visited(self):
@@ -96,6 +97,11 @@ class PostDetailView(CommonViewMixin, DetailView):
             increase_uv = True
             cache.set(uv_key, 1, 24*60*60)
 
+        elif increase_pv:
+            Post.objects.filter(pk=self.object.id).update(pv=F('pv') + 1)
+
+        elif increase_uv:
+            Post.objects.filter(pk=self.object.id).update(pv=F('uv') + 1)
 
 class SearchView(IndexView):
     def get_context_data(self):
