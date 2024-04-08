@@ -2,7 +2,8 @@ from django.core.cache import cache
 from django.db.models import Q, F
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from django.utils.datetime_safe import date
+from datetime import date
+# from django.utils.datetime_safe import date
 from django.views.generic import DetailView, ListView
 
 from comment.forms import CommentForm

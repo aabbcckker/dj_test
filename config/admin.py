@@ -3,6 +3,7 @@ from .models import Link, Sidebar
 from typeidea.base_admin import BaseOwnerAdmin
 # Register your models here.
 
+
 @admin.register(Link)
 class LinkAdmin(admin.ModelAdmin):
     list_display = ('title', 'href', 'status', 'weight', 'created_time')
