@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
+from django.contrib.sitemaps import views as sitemap_views
 from blog.views import IndexView, PostDetailView, CategoryView, TagView, SearchView, AuthorView
 from comment.views import CommentView
 from config.views import LinkView
+from blog.rss import LatestPostFeed
+from blog.sitemap import PostSitemap
 
 from typeidea.custom_site import custom_site
 
@@ -30,6 +34,8 @@ urlpatterns = [
     path('search/', SearchView.as_view(), name='search'),
     path('author/<int:owner_id>/', AuthorView.as_view(), name='author'),
     path('comment/', CommentView.as_view(), name='comment'),
+    path('rss|feed/', LatestPostFeed(), name='rss'),
+    path('sitemap.xml', sitemap_views.sitemap, {'sitemaps': {'posts': PostSitemap}}),
 
     path('super_admin/', admin.site.urls, name='super_admin'),
     path('admin/', custom_site.urls, name='admin'),
