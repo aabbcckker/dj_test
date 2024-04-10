@@ -5,7 +5,7 @@ from django.utils.html import format_html
 from typeidea.base_admin import BaseOwnerAdmin
 from typeidea.custom_site import custom_site
 from .adminforms import PostAdminForm
-from .models import Category,Tag,Post
+from .models import Category, Tag, Post
 # Register your models here.
 
 

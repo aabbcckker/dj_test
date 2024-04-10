@@ -13,8 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from django.contrib.sitemaps import views as sitemap_views
 from blog.views import IndexView, PostDetailView, CategoryView, TagView, SearchView, AuthorView
@@ -22,6 +24,7 @@ from comment.views import CommentView
 from config.views import LinkView
 from blog.rss import LatestPostFeed
 from blog.sitemap import PostSitemap
+from typeidea.autocomplete import CategoryAutocomplete, TagAutocomplete
 
 from typeidea.custom_site import custom_site
 
@@ -39,4 +42,9 @@ urlpatterns = [
 
     path('super_admin/', admin.site.urls, name='super_admin'),
     path('admin/', custom_site.urls, name='admin'),
-]
+
+    path('category-autocomplete/', CategoryAutocomplete.as_view(), name='category-autocomplete'),
+    path('tag-autocomplete/', TagAutocomplete.as_view(), name='tag-autocomplete'),
+
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

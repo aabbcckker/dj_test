@@ -15,6 +15,7 @@ class LinkAdmin(admin.ModelAdmin):
 
 @admin.register(Sidebar)
 class SidebarAdmin(admin.ModelAdmin):
+
     list_display = ('title', 'type', 'content', 'created_time')
     fields = ('title', 'type', 'content')
     def save_model(self, request, obj, form, change):
