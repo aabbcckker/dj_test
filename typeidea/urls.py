@@ -16,9 +16,14 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+
 from django.urls import path, include
 
 from django.contrib.sitemaps import views as sitemap_views
+from rest_framework.routers import DefaultRouter
+from rest_framework.documentation import include_docs_urls
+
+from blog.apis import PostViewSet
 from blog.views import IndexView, PostDetailView, CategoryView, TagView, SearchView, AuthorView
 from comment.views import CommentView
 from config.views import LinkView
@@ -27,6 +32,9 @@ from blog.sitemap import PostSitemap
 from typeidea.autocomplete import CategoryAutocomplete, TagAutocomplete
 
 from typeidea.custom_site import custom_site
+
+router = DefaultRouter()
+router.register(r'post', PostViewSet, basename='api-post')
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -47,4 +55,8 @@ urlpatterns = [
     path('tag-autocomplete/', TagAutocomplete.as_view(), name='tag-autocomplete'),
 
     path('ckeditor/', include('ckeditor_uploader.urls')),
+
+    path('api/', include((router.urls, 'api'))),
+    path('api/docs/', include_docs_urls(title='typeidea apis')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

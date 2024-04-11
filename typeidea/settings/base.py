@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'dal_select2',
     'ckeditor',
     'ckeditor_uploader',
+    'rest_framework',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -49,6 +50,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+}
+
 
 MIDDLEWARE = [
     'blog.middleware.user_id.UserIDMiddleware',
