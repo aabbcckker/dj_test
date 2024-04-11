@@ -23,7 +23,7 @@ from django.contrib.sitemaps import views as sitemap_views
 from rest_framework.routers import DefaultRouter
 from rest_framework.documentation import include_docs_urls
 
-from blog.apis import PostViewSet
+from blog.apis import PostViewSet, CategoryViewSet
 from blog.views import IndexView, PostDetailView, CategoryView, TagView, SearchView, AuthorView
 from comment.views import CommentView
 from config.views import LinkView
@@ -35,6 +35,7 @@ from typeidea.custom_site import custom_site
 
 router = DefaultRouter()
 router.register(r'post', PostViewSet, basename='api-post')
+router.register(r'category', CategoryViewSet, basename='api-category')
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
