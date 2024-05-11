@@ -5,7 +5,7 @@ from django.contrib.admin.models import LogEntry
 from typeidea.custom_site import custom_site
 
 
-class BaseOwnerAdmin(admin.ModelAdmin):
+class BaseOwnerAdmin(object):
 
     exclude = ('owner',)
 
