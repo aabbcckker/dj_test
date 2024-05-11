@@ -1,4 +1,3 @@
-from matplotlib import category
 from rest_framework import generics, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -32,7 +31,7 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = CategorySerializer
-    queryset = category.objects.filter(status=Category.STATUS_NORMAL)
+    queryset = Category.objects.filter(status=Category.STATUS_NORMAL)
     
     def retrieve(self, request, *args, **kwargs):
         self.serializer_class = CategoryDetailSerializer

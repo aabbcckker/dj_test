@@ -33,6 +33,8 @@ from typeidea.autocomplete import CategoryAutocomplete, TagAutocomplete
 
 from typeidea.custom_site import custom_site
 
+from .settings import base
+
 router = DefaultRouter()
 router.register(r'post', PostViewSet, basename='api-post')
 router.register(r'category', CategoryViewSet, basename='api-category')
@@ -61,3 +63,9 @@ urlpatterns = [
     path('api/docs/', include_docs_urls(title='typeidea apis')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if base.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls))
+    ] + urlpatterns
