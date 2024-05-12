@@ -5,5 +5,5 @@ from .models import Comment
 # Register your models here.
 
 @admin.register(Comment)
-class CommentAdmin(BaseOwnerAdmin):
+class CommentAdmin(admin.ModelAdmin):
     list_display = ('target', 'nickname', 'content', 'website', 'created_time')

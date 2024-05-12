@@ -35,6 +35,8 @@ from typeidea.custom_site import custom_site
 
 from .settings import base
 
+from django.views.decorators.cache import cache_page
+
 router = DefaultRouter()
 router.register(r'post', PostViewSet, basename='api-post')
 router.register(r'category', CategoryViewSet, basename='api-category')
@@ -61,6 +63,9 @@ urlpatterns = [
 
     path('api/', include((router.urls, 'api'))),
     path('api/docs/', include_docs_urls(title='typeidea apis')),
+
+    path('sitemap.xml', cache_page(60 * 20, key_prefix='sitemap+cache_')
+    (sitemap_views.sitemap), {'sitemaps': {'posts': PostSitemap}}),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
